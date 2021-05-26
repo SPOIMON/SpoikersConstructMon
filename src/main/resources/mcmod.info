@@ -1,0 +1,16 @@
+[
+{
+  "modid": "spoikers_construct_mon",
+  "name": "Spoiker's ConstructMon",
+  "description": "TiC AddOn",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SPOIMON Team"],
+  "credits": "The Forge and FML guys",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
