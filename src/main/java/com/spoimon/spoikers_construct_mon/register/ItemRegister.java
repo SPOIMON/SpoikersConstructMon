@@ -15,22 +15,42 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * SCMで追加されるアイテムの登録や管理をするクラス
+ * @author riku1227
+ */
+
 public class ItemRegister {
     public static Map<String, SCMItem> SCMItems = new HashMap<>();
 
+    /**
+     * コンストラクタ実行時に 'MinecraftForge.EVENT_BUS.register' が呼ばれる
+     */
     public ItemRegister() {
         MinecraftForge.EVENT_BUS.register(this);
+        //アイテムの登録
         registerItems();
     }
 
+    /**
+     * SCMで追加されるアイテムを全て登録する
+     */
     private void registerItems() {
         registerItem(new IngotItem("test_ingot"));
     }
 
+    /**
+     * SCMItemを登録する
+     * @param item 登録するアイテム
+     */
     private void registerItem(SCMItem item) {
         ItemRegister.SCMItems.put(item.itemName, item);
     }
 
+    /**
+     * Forgeのイベントから呼ばれる
+     * レジストリにアイテムを登録する
+     */
     @SubscribeEvent
     public void registerItemsEvent(RegistryEvent.Register<Item> event) {
         for(SCMItem value : SCMItems.values()) {
@@ -38,6 +58,10 @@ public class ItemRegister {
         }
     }
 
+    /**
+     * Forgeのイベントから呼ばれる
+     * アイテムのモデルを設定する
+     */
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void registerModelsEvent(ModelRegistryEvent event) {

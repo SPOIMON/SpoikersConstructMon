@@ -4,6 +4,11 @@ import com.spoimon.spoikers_construct_mon.SCM;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * SCMで追加されるアイテムのベースクラス
+ * レジストリ名, 未翻訳名が自動で設定される
+ * @author riku1227
+ */
 public class SCMItem extends Item {
     public final String itemName;
 
@@ -14,6 +19,9 @@ public class SCMItem extends Item {
         this.setUnlocalizedName(itemName);
     }
 
+    /**
+     * @return ドメインがMOD_ID, パスがアイテム名のResourceLocation
+     */
     public ResourceLocation getResourceLocation() {
         return new ResourceLocation(SCM.MOD_ID, this.itemName);
     }

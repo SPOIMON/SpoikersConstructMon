@@ -4,6 +4,12 @@ import com.spoimon.spoikers_construct_mon.SCM;
 import com.spoimon.spoikers_construct_mon.client.SCMCreativeTab;
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * インゴット系のアイテムクラス
+ * ResourceLocationに 'ingot/' が追加される
+ * クリエイティブタブがSCMCreativeTabになる
+ * @author riku1227
+ */
 public class IngotItem extends SCMItem {
     public IngotItem(String itemName) {
         super(itemName);
