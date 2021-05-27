@@ -1,9 +1,10 @@
 package com.spoimon.spoikers_construct_mon.client;
 
-import com.spoimon.spoikers_construct_mon.SCM;
 import com.spoimon.spoikers_construct_mon.register.ItemRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nonnull;
 
 /**
  * SCMで追加されたアイテムを入れるクリエイティブタブ
@@ -19,6 +20,7 @@ public class SCMCreativeTab extends CreativeTabs {
     }
 
 
+    @Nonnull
     @Override
     public ItemStack getTabIconItem() {
         //TODO 象徴的なアイテムもしくはアイコンができたらそれに変える
