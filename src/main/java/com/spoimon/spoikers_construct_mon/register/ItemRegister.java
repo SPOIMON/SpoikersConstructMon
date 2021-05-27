@@ -28,7 +28,7 @@ public class ItemRegister {
     }
 
     private void registerItem(SCMItem item) {
-        this.SCMItems.put(item.itemName, item);
+        ItemRegister.SCMItems.put(item.itemName, item);
     }
 
     @SubscribeEvent
