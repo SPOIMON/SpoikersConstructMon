@@ -36,7 +36,7 @@ public class ItemRegister {
      * SCMで追加されるアイテムを全て登録する
      */
     private void registerItems() {
-        registerItem(new IngotItem("test_ingot"));
+        registerItem(new IngotItem("copper_ingot"));
     }
 
     /**

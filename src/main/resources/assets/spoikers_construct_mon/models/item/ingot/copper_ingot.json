@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "spoikers_construct_mon:items/ingot/copper_ingot"
+  }
+}
