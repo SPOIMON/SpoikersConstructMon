@@ -2,8 +2,10 @@ package com.spoimon.spoikers_construct_mon;
 
 import com.spoimon.spoikers_construct_mon.register.BlockRegister;
 import com.spoimon.spoikers_construct_mon.register.ItemRegister;
+import com.spoimon.spoikers_construct_mon.world.generator.OreGenerator;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = SCM.MOD_ID, name = SCM.NAME, version = SCM.VERSION, dependencies = SCM.DEPENDENCIES)
 public class SCM {
@@ -21,5 +23,6 @@ public class SCM {
     public void construct(FMLConstructionEvent event) {
         itemRegister = new ItemRegister();
         blockRegister = new BlockRegister();
+        GameRegistry.registerWorldGenerator(new OreGenerator(), 0);
     }
 }
