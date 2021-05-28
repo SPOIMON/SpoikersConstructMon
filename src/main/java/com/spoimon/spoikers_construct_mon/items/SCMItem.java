@@ -10,13 +10,35 @@ import net.minecraft.util.ResourceLocation;
  * @author riku1227
  */
 public class SCMItem extends Item {
+    //アイテムの名前
     public final String itemName;
+    //鉱石辞書の名前
+    protected String oreDictionaryName = "";
 
     public SCMItem(String itemName) {
         super();
         this.itemName = itemName;
         this.setRegistryName(SCM.MOD_ID, itemName);
         this.setUnlocalizedName(itemName);
+    }
+
+    public SCMItem(String itemName, String oreDictionaryName) {
+        this(itemName);
+        this.oreDictionaryName = oreDictionaryName;
+    }
+
+    /**
+     * @return 鉱石辞書の名前がある場合はtrue
+     */
+    public Boolean isOreDictionary() {
+        return !this.oreDictionaryName.isEmpty();
+    }
+
+    /**
+     * @return 鉱石辞書名を返す
+     */
+    public String getOreDictionaryName() {
+        return oreDictionaryName;
     }
 
     /**

@@ -14,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class SCMBlock extends Block {
     public String blockName;
+    protected String oreDictionaryName;
     protected ItemBlock itemBlock;
 
     public SCMBlock(Material blockMaterial, String blockName) {
@@ -22,6 +23,11 @@ public class SCMBlock extends Block {
         this.setRegistryName(SCM.MOD_ID, blockName);
         this.setCreativeTab(SCMCreativeTab.INSTANCE);
         this.setUnlocalizedName(blockName);
+    }
+
+    public SCMBlock(Material blockMaterial, String blockName, String oreDictionaryName) {
+        this(blockMaterial, blockName);
+        this.oreDictionaryName = oreDictionaryName;
     }
 
     /**
@@ -36,6 +42,20 @@ public class SCMBlock extends Block {
         }
 
         return this.itemBlock;
+    }
+
+    /**
+     * @return 鉱石辞書の名前がある場合はtrue
+     */
+    public Boolean isOreDictionary() {
+        return !this.oreDictionaryName.isEmpty();
+    }
+
+    /**
+     * @return 鉱石辞書名を返す
+     */
+    public String getOreDictionaryName() {
+        return oreDictionaryName;
     }
 
     /**

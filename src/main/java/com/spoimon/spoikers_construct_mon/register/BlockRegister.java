@@ -14,6 +14,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -40,7 +41,7 @@ public class BlockRegister {
      * SCMで追加されるブロックを全て登録する
      */
     private void registerBlocks() {
-        registerBlock(new OreBlock("copper_ore", 1));
+        registerBlock(new OreBlock("copper_ore", 1, "oreCopper"));
     }
 
     /**
@@ -59,6 +60,9 @@ public class BlockRegister {
     public void registerItemsEvent(RegistryEvent.Register<Item> event) {
         for(SCMBlock value : SCMBlocks.values()) {
             event.getRegistry().register(value.getItemBlock());
+            if(value.isOreDictionary()) {
+                OreDictionary.registerOre(value.getOreDictionaryName(), value);
+            }
         }
     }
 
