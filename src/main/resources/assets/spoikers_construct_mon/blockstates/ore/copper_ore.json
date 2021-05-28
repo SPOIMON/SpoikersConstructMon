@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "normal": { "model": "spoikers_construct_mon:ore/copper_ore" }
+  }
+}

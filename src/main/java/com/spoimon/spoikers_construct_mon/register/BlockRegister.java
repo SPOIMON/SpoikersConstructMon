@@ -1,9 +1,11 @@
 package com.spoimon.spoikers_construct_mon.register;
 
+import com.spoimon.spoikers_construct_mon.blocks.OreBlock;
 import com.spoimon.spoikers_construct_mon.blocks.SCMBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -13,6 +15,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +40,7 @@ public class BlockRegister {
      * SCMで追加されるブロックを全て登録する
      */
     private void registerBlocks() {
-        registerBlock(new SCMBlock(Material.IRON, "test_block"));
+        registerBlock(new OreBlock("copper_ore", 1));
     }
 
     /**
@@ -77,6 +81,16 @@ public class BlockRegister {
     @SideOnly(Side.CLIENT)
     public void registerModelsEvent(ModelRegistryEvent event) {
         for(SCMBlock value : SCMBlocks.values()) {
+            //BlockStateの場所を指定する
+            ModelLoader.setCustomStateMapper(value, new StateMapperBase() {
+                @Override
+                @Nonnull
+                @ParametersAreNonnullByDefault
+                protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                    return new ModelResourceLocation(value.getResourceLocation(), "normal");
+                }
+            });
+            //Modelの場所を指定する
             ModelLoader.setCustomModelResourceLocation(value.getItemBlock(), 0,
                     new ModelResourceLocation(
                             value.getResourceLocation(), "inventory"
