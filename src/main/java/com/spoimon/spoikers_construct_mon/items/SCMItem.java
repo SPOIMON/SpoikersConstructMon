@@ -19,7 +19,7 @@ public class SCMItem extends Item {
         super();
         this.itemName = itemName;
         this.setRegistryName(SCM.MOD_ID, itemName);
-        this.setUnlocalizedName(itemName);
+        this.setUnlocalizedName(SCM.MOD_ABBREVIATION + "." + itemName);
     }
 
     public SCMItem(String itemName, String oreDictionaryName) {

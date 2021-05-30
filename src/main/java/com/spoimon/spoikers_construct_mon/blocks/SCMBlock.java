@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 /**
  * SCMで追加されるブロックのベースクラス
- * レジストリ名, 未翻訳名, クリエイティブタブが自動で設定される
+ * レジストリ名, 翻訳キー, クリエイティブタブが自動で設定される
  * @author riku1227
  */
 public class SCMBlock extends Block {
@@ -22,7 +22,7 @@ public class SCMBlock extends Block {
         this.blockName = blockName;
         this.setRegistryName(SCM.MOD_ID, blockName);
         this.setCreativeTab(SCMCreativeTab.INSTANCE);
-        this.setUnlocalizedName(blockName);
+        this.setUnlocalizedName(SCM.MOD_ABBREVIATION + "." + blockName);
     }
 
     public SCMBlock(Material blockMaterial, String blockName, String oreDictionaryName) {
