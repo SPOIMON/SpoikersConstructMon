@@ -2,10 +2,12 @@ package com.spoimon.spoikers_construct_mon.register;
 
 import com.spoimon.spoikers_construct_mon.blocks.OreBlock;
 import com.spoimon.spoikers_construct_mon.blocks.SCMBlock;
+import com.spoimon.spoikers_construct_mon.world.generator.data.OreGeneratorData;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -41,7 +43,11 @@ public class BlockRegister {
      * SCMで追加されるブロックを全て登録する
      */
     private void registerBlocks() {
-        registerBlock(new OreBlock("copper_ore", 1, "oreCopper"));
+        OreBlock copperBlock = new OreBlock("copper_ore", 1, "oreCopper");
+        copperBlock.setOreGeneratorData(new OreGeneratorData(
+                9, Blocks.STONE, 16, 1, 50
+        ));
+        registerBlock(copperBlock);
     }
 
     /**

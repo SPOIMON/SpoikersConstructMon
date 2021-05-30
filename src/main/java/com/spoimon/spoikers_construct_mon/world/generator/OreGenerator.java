@@ -1,8 +1,10 @@
 package com.spoimon.spoikers_construct_mon.world.generator;
 
+import com.spoimon.spoikers_construct_mon.blocks.OreBlock;
+import com.spoimon.spoikers_construct_mon.blocks.SCMBlock;
 import com.spoimon.spoikers_construct_mon.register.BlockRegister;
+import com.spoimon.spoikers_construct_mon.world.generator.data.OreGeneratorData;
 import net.minecraft.block.state.pattern.BlockMatcher;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -10,23 +12,69 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
  * 鉱石の生成を登録するクラス
- * TODO このままだと鉱石追加するたびに追記量が多くめんどくさいのでもう少しいい感じにする
  * @author riku1227
  */
 public class OreGenerator implements IWorldGenerator {
-    private WorldGenMinable copperGen;
+    /**
+     * WorldGenMinableとOreGeneratorDataをまとめたクラス
+     * Mapに突っ込む用
+     */
+    public static class GenerationDatas {
+        public final WorldGenMinable worldGenMinable;
+        public final OreGeneratorData oreGeneratorData;
+
+        public GenerationDatas(WorldGenMinable worldGenMinable, OreGeneratorData oreGeneratorData) {
+            this.worldGenMinable = worldGenMinable;
+            this.oreGeneratorData = oreGeneratorData;
+        }
+    }
+
+    /**
+     * GenerationDatasを収納するMap
+     * コンストラクタで追加し、generateで利用する
+     */
+    public Map<String, GenerationDatas> generationDatasMap = new HashMap<>();
 
     public OreGenerator() {
-        this.copperGen = new WorldGenMinable(BlockRegister.SCMBlocks.get("copper_ore").getDefaultState(), 9, BlockMatcher.forBlock(Blocks.STONE));
+        //SCMで追加されたブロックをforで回す
+        for(SCMBlock block: BlockRegister.SCMBlocks.values()) {
+            //追加されたブロックがOreBlockだったら
+            if(block instanceof OreBlock) {
+                OreBlock oreBlock = (OreBlock) block;
+                //OreGenerationDataがそのブロックに存在していたら
+                if(oreBlock.isExistsOreGenerationData()) {
+                    OreGeneratorData oreGeneratorData = oreBlock.getOreGeneratorData();
+                    //そのデータを元にGenerationDatasを作る
+                    GenerationDatas generationDatas = new GenerationDatas(
+                            new WorldGenMinable(oreBlock.getDefaultState(), oreGeneratorData.veinBlockCount, BlockMatcher.forBlock(oreGeneratorData.targetBlock)),
+                            oreGeneratorData
+                    );
+
+                    this.generationDatasMap.put(oreBlock.blockName, generationDatas);
+                }
+            }
+        }
     }
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-        runGenerator(this.copperGen, 12, 0, 50, world, random, chunkX, chunkZ);
+        //generationDatasMapをforで回す
+        for(GenerationDatas generationDatas : this.generationDatasMap.values()) {
+            runGenerator(generationDatas.worldGenMinable,
+                    generationDatas.oreGeneratorData.generateBlockChance,
+                    generationDatas.oreGeneratorData.minHeight,
+                    generationDatas.oreGeneratorData.maxHeight,
+                    world,
+                    random,
+                    chunkX,
+                    chunkZ);
+        }
     }
 
     private void runGenerator(WorldGenMinable generator, int chancesToSpawn, int minHeight, int maxHeight, World world, Random rand, int chunkX, int chunkZ){
