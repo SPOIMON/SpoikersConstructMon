@@ -1,5 +1,6 @@
 package com.spoimon.spoikers_construct_mon.register;
 
+import com.spoimon.spoikers_construct_mon.blocks.MineralBlock;
 import com.spoimon.spoikers_construct_mon.blocks.OreBlock;
 import com.spoimon.spoikers_construct_mon.blocks.SCMBlock;
 import com.spoimon.spoikers_construct_mon.world.generator.data.OreGeneratorData;
@@ -48,6 +49,7 @@ public class BlockRegister {
                 9, Blocks.STONE, 16, 1, 50
         ));
         registerBlock(copperBlock);
+        registerBlock(new MineralBlock("block_of_copper", "blockCopper"));
     }
 
     /**

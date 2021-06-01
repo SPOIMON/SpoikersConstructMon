@@ -1,0 +1,5 @@
+{
+    "variants": {
+      "normal": { "model": "spoikers_construct_mon:mineral_block/block_of_copper" }
+    }
+  }
