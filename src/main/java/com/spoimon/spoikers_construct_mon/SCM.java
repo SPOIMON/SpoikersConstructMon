@@ -2,6 +2,7 @@ package com.spoimon.spoikers_construct_mon;
 
 import com.spoimon.spoikers_construct_mon.register.BlockRegister;
 import com.spoimon.spoikers_construct_mon.register.ItemRegister;
+import com.spoimon.spoikers_construct_mon.register.RecipeRegister;
 import com.spoimon.spoikers_construct_mon.world.generator.OreGenerator;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
@@ -24,11 +25,14 @@ public class SCM {
     public static ItemRegister itemRegister;
     //SCMで追加されるブロックの登録や管理
     public static BlockRegister blockRegister;
+    //SC<で追加されるレシピの登録
+    public static RecipeRegister recipeRegister;
 
     @Mod.EventHandler
     public void construct(FMLConstructionEvent event) {
         itemRegister = new ItemRegister();
         blockRegister = new BlockRegister();
+        recipeRegister = new RecipeRegister();
         GameRegistry.registerWorldGenerator(new OreGenerator(), 0);
     }
 }
