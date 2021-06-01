@@ -49,7 +49,7 @@ public class BlockRegister {
                 9, Blocks.STONE, 16, 1, 50
         ));
         registerBlock(copperBlock);
-        registerBlock(new MineralBlock("block_of_copper", "blockCopper"));
+        registerBlock(new MineralBlock("block_of_copper", "ingotCopper", "blockCopper"));
     }
 
     /**
