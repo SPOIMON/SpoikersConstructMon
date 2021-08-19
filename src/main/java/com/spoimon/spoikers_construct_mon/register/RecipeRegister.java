@@ -2,6 +2,7 @@ package com.spoimon.spoikers_construct_mon.register;
 
 import com.spoimon.spoikers_construct_mon.SCM;
 import com.spoimon.spoikers_construct_mon.blocks.MineralBlock;
+import com.spoimon.spoikers_construct_mon.blocks.OreBlock;
 import com.spoimon.spoikers_construct_mon.blocks.SCMEnumBlock;
 import com.spoimon.spoikers_construct_mon.utils.StringUtil;
 import net.minecraft.item.ItemStack;
@@ -10,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -30,6 +32,29 @@ public class RecipeRegister {
     public void registerRecipesEvent(RegistryEvent.Register<IRecipe> event) {
         IForgeRegistry<IRecipe> registry = event.getRegistry();
         registerAllMineralBlocksRecipe(registry);
+        registerAllOreSmeltingRecipe();
+    }
+
+
+    /**
+     * 鉱石の精錬レシピを追加する
+     */
+    private void registerAllOreSmeltingRecipe() {
+        for(SCMEnumBlock<?> value : BlockRegister.SCMEnumBlocks.values()) {
+            //OreBlockだったら
+            if(value instanceof OreBlock) {
+                OreBlock<?> oreBlock = (OreBlock<?>) value;
+                //メタデータの名前のリストを取得
+                List<String> metaNameList = oreBlock.getMetaNameList();
+                for(int i = 0; i < metaNameList.size(); i++) {
+                    //インゴットを鉱石辞書から取得
+                    List<ItemStack> dictionary = OreDictionary.getOres("ingot" + StringUtil.toFirstUpper(metaNameList.get(i)));
+                    if(dictionary.size() > 0) {
+                        GameRegistry.addSmelting(new ItemStack(value, 1, i), dictionary.get(0), 0.5f);
+                    }
+                }
+            }
+        }
     }
 
     /**
