@@ -1,48 +1,38 @@
 package com.spoimon.spoikers_construct_mon.blocks;
 
-import com.spoimon.spoikers_construct_mon.SCM;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.IStringSerializable;
+import slimeknights.mantle.block.EnumBlock;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * 鉱物ブロック用のクラス
- * このクラスでブロックを追加すると、指定したインゴットの鉱石辞書名で自動的にクラフトレシピが追加される
- * マテリアルタイプがIronになる
- * ResourceLocationに 'mineral_block/' が追加される
- * 鉱石辞書名に"block"プレフィックスがない場合、自動的に追加される
- * @author riku1227
+ * 鉱石ブロック用のメタデータブロッククラス
+ * このクラスを使用することで、自動的に鉱石ブロックのクラフトレシピが追加される
+ * @param <T>
  */
-public class MineralBlock extends SCMBlock {
-    //ブロックのクラフト素材となるインゴットの鉱石辞書名
-    public final String baseIngotOreDictionaryName;
+public class MineralBlock<T extends java.lang.Enum<T> & EnumBlock.IEnumMeta & IStringSerializable & OreBlock.IOreBlock > extends SCMEnumBlock<T> {
 
-    /**
-     * @param blockName ブロックの名前
-     * @param baseIngotOreDictionaryName ブロックのクラフト素材となるインゴットの鉱石辞書名
-     */
-    public MineralBlock(String blockName, String baseIngotOreDictionaryName) {
-        super(Material.IRON, blockName);
-        this.baseIngotOreDictionaryName = baseIngotOreDictionaryName;
-        setHarvestLevel("pickaxe", 1);
-    }
+    public final PropertyEnum<T> prop;
 
-    /**
-     * @param blockName ブロックの名前
-     * @param baseIngotOreDictionaryName ブロックのクラフト素材となるインゴットの鉱石辞書名
-     * @param oreDictionaryName ブロックの鉱石辞書名
-     */
-    public MineralBlock(String blockName, String baseIngotOreDictionaryName, String oreDictionaryName) {
-        this(blockName, baseIngotOreDictionaryName);
-
-        String oreDictNameTemp = oreDictionaryName;
-        if(!oreDictNameTemp.startsWith("block")) {
-            oreDictNameTemp = "block" + oreDictionaryName;
-        }
-        this.oreDictionaryName = oreDictNameTemp;
+    public MineralBlock(PropertyEnum<T> prop, Class<T> clazz, String blockName) {
+        super(prop, clazz, Material.IRON, blockName, "block");
+        this.prop = prop;
+        setHardness(2.5f);
     }
 
     @Override
-    public ResourceLocation getResourceLocation() {
-        return new ResourceLocation(SCM.MOD_ID, "mineral_block/" + this.blockName);
+    @ParametersAreNonnullByDefault
+    public int getHarvestLevel(IBlockState state) {
+        int meta = this.getMetaFromState(state);
+        return values[meta].getHarvestLevel();
+    }
+
+    @Override
+    @ParametersAreNonnullByDefault
+    public String getHarvestTool(IBlockState state) {
+        return "pickaxe";
     }
 }

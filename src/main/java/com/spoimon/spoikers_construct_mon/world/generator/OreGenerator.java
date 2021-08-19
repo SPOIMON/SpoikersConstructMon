@@ -1,7 +1,7 @@
 package com.spoimon.spoikers_construct_mon.world.generator;
 
 import com.spoimon.spoikers_construct_mon.blocks.OreBlock;
-import com.spoimon.spoikers_construct_mon.blocks.SCMBlock;
+import com.spoimon.spoikers_construct_mon.blocks.SCMEnumBlock;
 import com.spoimon.spoikers_construct_mon.register.BlockRegister;
 import com.spoimon.spoikers_construct_mon.world.generator.data.OreGeneratorData;
 import net.minecraft.block.state.pattern.BlockMatcher;
@@ -13,6 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -42,21 +43,23 @@ public class OreGenerator implements IWorldGenerator {
     public Map<String, GenerationDatas> generationDatasMap = new HashMap<>();
 
     public OreGenerator() {
-        //SCMで追加されたブロックをforで回す
-        for(SCMBlock block: BlockRegister.SCMBlocks.values()) {
+        //SCMで追加されたメタデータブロックをforで回す
+        for (SCMEnumBlock<?> enumBlock : BlockRegister.SCMEnumBlocks.values()) {
             //追加されたブロックがOreBlockだったら
-            if(block instanceof OreBlock) {
-                OreBlock oreBlock = (OreBlock) block;
-                //OreGenerationDataがそのブロックに存在していたら
-                if(oreBlock.isExistsOreGenerationData()) {
-                    OreGeneratorData oreGeneratorData = oreBlock.getOreGeneratorData();
-                    //そのデータを元にGenerationDatasを作る
+            if(enumBlock instanceof OreBlock<?>) {
+                //SCMEnumBlockをOreBlockにキャスト
+                OreBlock<?> oreBlock = (OreBlock<?>) enumBlock;
+                //OreBlockからメタデータ全てのOreGeneratorのリストを取得
+                List<OreGeneratorData> oreGeneratorDataList = oreBlock.getMetaOreGeneratorList();
+                for (int i = 0; i < oreGeneratorDataList.size(); i++) {
+                    OreGeneratorData oreGeneratorData = oreGeneratorDataList.get(i);
+                    //GenerationDatasを作る
                     GenerationDatas generationDatas = new GenerationDatas(
-                            new WorldGenMinable(oreBlock.getDefaultState(), oreGeneratorData.veinBlockCount, BlockMatcher.forBlock(oreGeneratorData.targetBlock)),
+                            new WorldGenMinable(oreBlock.getStateFromMeta(i), oreGeneratorData.veinBlockCount, BlockMatcher.forBlock(oreGeneratorData.targetBlock)),
                             oreGeneratorData
                     );
-
-                    this.generationDatasMap.put(oreBlock.blockName, generationDatas);
+                    //GenerationDatasを収納しているマップに追加する
+                    this.generationDatasMap.put(enumBlock.blockName + i, generationDatas);
                 }
             }
         }

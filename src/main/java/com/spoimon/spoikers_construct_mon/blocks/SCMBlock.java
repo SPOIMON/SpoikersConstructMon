@@ -48,7 +48,7 @@ public class SCMBlock extends Block {
      * @return 鉱石辞書の名前がある場合はtrue
      */
     public Boolean isOreDictionary() {
-        return !this.oreDictionaryName.isEmpty();
+        return this.oreDictionaryName != null;
     }
 
     /**

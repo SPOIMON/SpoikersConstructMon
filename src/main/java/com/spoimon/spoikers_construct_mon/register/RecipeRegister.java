@@ -2,7 +2,8 @@ package com.spoimon.spoikers_construct_mon.register;
 
 import com.spoimon.spoikers_construct_mon.SCM;
 import com.spoimon.spoikers_construct_mon.blocks.MineralBlock;
-import com.spoimon.spoikers_construct_mon.blocks.SCMBlock;
+import com.spoimon.spoikers_construct_mon.blocks.SCMEnumBlock;
+import com.spoimon.spoikers_construct_mon.utils.StringUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -13,6 +14,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.List;
 
 /**
  * SCMでレシピの登録をするクラス
@@ -34,23 +37,26 @@ public class RecipeRegister {
      * @param registry IRecipeのレジストリ
      */
     private void registerAllMineralBlocksRecipe(IForgeRegistry<IRecipe> registry) {
-        for (SCMBlock scmBlock : BlockRegister.SCMBlocks.values()) {
-            if(scmBlock instanceof MineralBlock) {
-                MineralBlock mineralBlock = (MineralBlock) scmBlock;
-                //インゴットからブロックをクラフトするレシピの追加
-                registerShapedOreRecipe(registry, mineralBlock.blockName, new ItemStack(mineralBlock),
-                        "###",
-                        "###",
-                        "###",
-                        '#', mineralBlock.baseIngotOreDictionaryName
-                );
+        for (SCMEnumBlock<?> scmEnumBlock : BlockRegister.SCMEnumBlocks.values()) {
+            if(scmEnumBlock instanceof MineralBlock<?>) {
+                MineralBlock<?> mineralBlock = (MineralBlock<?>) scmEnumBlock;
+                List<String> metaNameList = mineralBlock.getMetaNameList();
+                for (int i = 0; i < metaNameList.size(); i++) {
+                    String metaName = metaNameList.get(i);
+                    String ingotDictionaryName = "ingot" + StringUtil.toFirstUpper(metaName);
+                    registerShapedOreRecipe(registry, mineralBlock.blockName + i, new ItemStack(mineralBlock, 1, i),
+                            "###",
+                            "###",
+                            "###",
+                            '#', ingotDictionaryName);
 
-                //鉱石辞書からベースインゴットのItemStackを取得
-                ItemStack ingotItem = OreDictionary.getOres(mineralBlock.baseIngotOreDictionaryName).get(0);
-                //数を9個に
-                ingotItem.setCount(9);
-                //ブロックからインゴットにクラフトするレシピの追加
-                registerShapelessOreRecipe(registry, mineralBlock.blockName + "_to_ingot", ingotItem, mineralBlock.getOreDictionaryName());
+                    List<ItemStack> oreDictionaryList = OreDictionary.getOres(ingotDictionaryName);
+                    if (oreDictionaryList.size() > 0) {
+                        ItemStack ingotItem = oreDictionaryList.get(0).copy();
+                        ingotItem.setCount(9);
+                        registerShapelessOreRecipe(registry, mineralBlock.blockName + i + "_to_ingot", ingotItem, "block" + StringUtil.toFirstUpper(metaName));
+                    }
+                }
             }
         }
     }

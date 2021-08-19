@@ -1,61 +1,64 @@
 package com.spoimon.spoikers_construct_mon.blocks;
 
-import com.spoimon.spoikers_construct_mon.SCM;
 import com.spoimon.spoikers_construct_mon.world.generator.data.OreGeneratorData;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.IStringSerializable;
+import slimeknights.mantle.block.EnumBlock;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 鉱石ブロック用のクラス
- * マテリアルタイプがROCKになる
- * ResourceLocationに 'ore/' が追加される
- * 鉱石辞書名に"ore"プレフィックスがない場合、自動的に追加される
+ * メタデータを利用し、ブロックIDを節約
+ * 鉱石ブロック用のEnumを指定、採掘レベルなどはEnumの方で指定する
+ * マテリアルタイプがROCKになる,
+ * 鉱石辞書カテゴリ('ore'や'ingot'など)に'ore'が指定される
  * @author riku1227
  */
-public class OreBlock extends SCMBlock {
-    //鉱石の生成に関するデータ
-    protected OreGeneratorData oreGeneratorData;
+public class OreBlock<T extends java.lang.Enum<T> & EnumBlock.IEnumMeta & IStringSerializable & OreBlock.IOreBlock > extends SCMEnumBlock<T> {
 
-    public OreBlock(String blockName, int harvestLevel) {
-        super(Material.ROCK, blockName);
-        setHarvestLevel("pickaxe", harvestLevel);
+    public final PropertyEnum<T> prop;
+
+    public OreBlock(PropertyEnum<T> prop, Class<T> clazz, String registryName) {
+        super(prop, clazz, Material.ROCK, registryName, "ore");
+        this.prop = prop;
+
+        setHardness(2.5f);
     }
 
-    public OreBlock(String blockName, int harvestLevel, String oreDictionaryName) {
-        this(blockName, harvestLevel);
-        String oreDicNameTemp = oreDictionaryName;
-        //鉱石辞書名が"ore"から始まっていない場合、"ore"というプレフィックスを前に追加する
-        if(!oreDictionaryName.startsWith("ore")) {
-            oreDicNameTemp = "ore" + oreDictionaryName;
+    /**
+     * OreGeneratorDataはEnumの方で設定する
+     * @return メタデータ全てのOreGeneratorDataのリストを返す
+     */
+    public List<OreGeneratorData> getMetaOreGeneratorList() {
+        ArrayList<OreGeneratorData> result = new ArrayList<>();
+        for (T value : values) {
+            result.add(value.getOreGeneratorData());
         }
-        this.oreDictionaryName = oreDicNameTemp;
+        return result;
     }
 
     @Override
-    public ResourceLocation getResourceLocation() {
-        return new ResourceLocation(SCM.MOD_ID, "ore/" + this.blockName);
+    @ParametersAreNonnullByDefault
+    public int getHarvestLevel(IBlockState state) {
+        int meta = this.getMetaFromState(state);
+        return values[meta].getHarvestLevel();
     }
 
-    /**
-     * 鉱石の生成に関するデータを入れるクラスをセットする、セットした値は主にOreGeneratorで利用される
-     * @param oreGeneratorData 鉱石の生成に関するデータを入れるクラス
-     */
-    public void setOreGeneratorData(OreGeneratorData oreGeneratorData) {
-        this.oreGeneratorData = oreGeneratorData;
+    @Override
+    @ParametersAreNonnullByDefault
+    public String getHarvestTool(IBlockState state) {
+        return "pickaxe";
     }
 
-    /**
-     * OreGenerationDataを取得する
-     * @return 鉱石の生成に関するデータを入れるクラス
-     */
-    public OreGeneratorData getOreGeneratorData() {
-        return this.oreGeneratorData;
-    }
-
-    /**
-     * @return OreGeneratorDataがセットされていた場合はtrueを返す
-     */
-    public Boolean isExistsOreGenerationData() {
-        return this.oreGeneratorData != null;
+    public interface IOreBlock {
+        //マイニングレベル
+        int getHarvestLevel();
+        //自動生成に関するデータ
+        OreGeneratorData getOreGeneratorData();
     }
 }

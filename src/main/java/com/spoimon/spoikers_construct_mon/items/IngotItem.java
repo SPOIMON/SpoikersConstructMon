@@ -1,34 +1,18 @@
 package com.spoimon.spoikers_construct_mon.items;
 
-import com.spoimon.spoikers_construct_mon.SCM;
-import com.spoimon.spoikers_construct_mon.client.SCMCreativeTab;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.util.IStringSerializable;
+import slimeknights.mantle.block.EnumBlock;
 
 /**
- * インゴット系のアイテムクラス
- * ResourceLocationに 'ingot/' が追加される
- * クリエイティブタブがSCMCreativeTabになる
- * 鉱石辞書名に"ingot"プレフィックスがない場合、自動的に追加される
- * @author riku1227
+ * SCMで追加されるインゴット用のアイテムクラス
+ * 鉱石辞書カテゴリに'ore'が自動的に設定される
+ * @param <T>
  */
-public class IngotItem extends SCMItem {
-    public IngotItem(String itemName) {
-        super(itemName);
-        this.setCreativeTab(SCMCreativeTab.INSTANCE);
-    }
+public class IngotItem<T extends java.lang.Enum<T> & EnumBlock.IEnumMeta & IStringSerializable> extends SCMEnumItem<T>{
 
-    public IngotItem(String itemName, String oreDictionaryName) {
-        this(itemName);
-        String oreDicNameTemp = oreDictionaryName;
-        //鉱石辞書名が"ingot"から始まっていない場合、"ingot"というプレフィックスを前に追加する
-        if(!oreDictionaryName.startsWith("ingot")) {
-            oreDicNameTemp = "ingot" + oreDicNameTemp;
-        }
-        this.oreDictionaryName = oreDicNameTemp;
-    }
-
-    @Override
-    public ResourceLocation getResourceLocation() {
-        return new ResourceLocation(SCM.MOD_ID, "ingot/" + this.itemName);
+    public IngotItem(PropertyEnum<T> prop, Class<T> clazz, String registryName) {
+        super(prop, clazz, registryName, "ingot");
+        this.setMaxStackSize(64);
     }
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "spoikers_construct_mon:blocks/ore/copper_ore"
-  }
-}

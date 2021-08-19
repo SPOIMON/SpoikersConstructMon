@@ -1,6 +1,6 @@
 # Blocks
-tile.scm.copper_ore.name=Copper Ore
-tile.scm.block_of_copper.name=Block of Copper
+tile.scm.ore_001.copper.name=Copper Ore
+tile.scm.mineral_block_001.copper.name=Block of Copper
 
 # Items
-item.scm.copper_ingot.name=Copper Ingot
+item.scm.ingot_001.copper.name=Copper Ingot

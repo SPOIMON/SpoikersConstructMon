@@ -1,0 +1,21 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "spoikers_construct_mon:normal_cube_all"
+  },
+  "variants": {
+    "type": {
+      "copper": {
+        "textures": {
+          "all": "spoikers_construct_mon:blocks/mineral_block/block_of_copper"
+        }
+      },
+      "lead": {
+        "textures": {
+          "all": "spoikers_construct_mon:blocks/mineral_block/block_of_copper"
+        }
+      }
+    }
+  }
+}

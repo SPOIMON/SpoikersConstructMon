@@ -1,6 +1,6 @@
 # Blocks
-tile.scm.copper_ore.name=銅鉱石
-tile.scm.block_of_copper.name=銅ブロック
+tile.scm.ore_001.copper.name=銅鉱石
+tile.scm.mineral_block_001.copper.name=銅ブロック
 
 # Items
-item.scm.copper_ingot.name=銅インゴット
+item.scm.ingot_001.copper.name=銅インゴット

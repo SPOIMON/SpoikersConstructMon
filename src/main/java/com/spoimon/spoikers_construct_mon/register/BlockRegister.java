@@ -1,15 +1,14 @@
 package com.spoimon.spoikers_construct_mon.register;
 
-import com.spoimon.spoikers_construct_mon.blocks.MineralBlock;
-import com.spoimon.spoikers_construct_mon.blocks.OreBlock;
-import com.spoimon.spoikers_construct_mon.blocks.SCMBlock;
-import com.spoimon.spoikers_construct_mon.world.generator.data.OreGeneratorData;
+import com.spoimon.spoikers_construct_mon.blocks.*;
+import com.spoimon.spoikers_construct_mon.blocks.enums.Ore01Enum;
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,10 +17,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import slimeknights.mantle.item.ItemBlockMeta;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,6 +32,7 @@ import java.util.Map;
  */
 public class BlockRegister {
     public static Map<String, SCMBlock> SCMBlocks = new HashMap<>();
+    public static Map<String, SCMEnumBlock<?>> SCMEnumBlocks = new HashMap<>();
 
     /**
      * コンストラクタ実行時に EVENT_BUS に登録
@@ -44,12 +47,9 @@ public class BlockRegister {
      * SCMで追加されるブロックを全て登録する
      */
     private void registerBlocks() {
-        OreBlock copperBlock = new OreBlock("copper_ore", 1, "oreCopper");
-        copperBlock.setOreGeneratorData(new OreGeneratorData(
-                9, Blocks.STONE, 16, 1, 50
-        ));
-        registerBlock(copperBlock);
-        registerBlock(new MineralBlock("block_of_copper", "ingotCopper", "blockCopper"));
+        PropertyEnum<Ore01Enum> ore01EnumPropertyEnum = PropertyEnum.create("type", Ore01Enum.class);
+        registerBlock(new OreBlock<>(ore01EnumPropertyEnum, Ore01Enum.class, "ore_001"));
+        registerBlock(new MineralBlock<>(ore01EnumPropertyEnum, Ore01Enum.class, "mineral_block_001"));
     }
 
     /**
@@ -58,6 +58,14 @@ public class BlockRegister {
      */
     private void registerBlock(SCMBlock block) {
         SCMBlocks.put(block.blockName, block);
+    }
+
+    /**
+     * メタデータブロックを登録する
+     * @param enumBlock 登録するメタデータブロック
+     */
+    private void registerBlock(SCMEnumBlock<?> enumBlock) {
+        SCMEnumBlocks.put(enumBlock.blockName, enumBlock);
     }
 
     /**
@@ -72,6 +80,17 @@ public class BlockRegister {
                 OreDictionary.registerOre(value.getOreDictionaryName(), value);
             }
         }
+
+        for(SCMEnumBlock<?> value : SCMEnumBlocks.values()) {
+            event.getRegistry().register(value.getItemBlock());
+            ItemBlockMeta.setMappingProperty(value, value.prop);
+            if(value.isOreDictionary()) {
+                List<String> oreDicList = value.getOreDictionaryList();
+                for(int i = 0; i < oreDicList.size(); i++) {
+                    OreDictionary.registerOre(oreDicList.get(i), new ItemStack(value, 1, i));
+                }
+            }
+        }
     }
 
     /**
@@ -81,6 +100,10 @@ public class BlockRegister {
     @SubscribeEvent
     public void registerBlocksEvent(RegistryEvent.Register<Block> event) {
         for(SCMBlock value : SCMBlocks.values()) {
+            event.getRegistry().register(value);
+        }
+
+        for (SCMEnumBlock<?> value : SCMEnumBlocks.values()) {
             event.getRegistry().register(value);
         }
     }
@@ -108,6 +131,19 @@ public class BlockRegister {
                             value.getResourceLocation(), "inventory"
                     )
             );
+        }
+
+        for (SCMEnumBlock<?> value : SCMEnumBlocks.values()) {
+            //EnumBlockからメタデータ全ての名前のリストを取得する
+            ArrayList<String> metaNameList = value.getMetaNameList();
+            for(int i = 0; i < metaNameList.size(); i++) {
+                //ItemBlockのモデルの場所を指定する
+                ModelLoader.setCustomModelResourceLocation(value.getItemBlock(), i,
+                        new ModelResourceLocation(
+                                value.getItemBlockResourceLocation(), metaNameList.get(i)
+                        )
+                );
+            }
         }
     }
 
