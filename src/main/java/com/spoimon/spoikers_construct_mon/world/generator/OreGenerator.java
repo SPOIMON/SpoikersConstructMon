@@ -53,13 +53,15 @@ public class OreGenerator implements IWorldGenerator {
                 List<OreGeneratorData> oreGeneratorDataList = oreBlock.getMetaOreGeneratorList();
                 for (int i = 0; i < oreGeneratorDataList.size(); i++) {
                     OreGeneratorData oreGeneratorData = oreGeneratorDataList.get(i);
-                    //GenerationDatasを作る
-                    GenerationDatas generationDatas = new GenerationDatas(
-                            new WorldGenMinable(oreBlock.getStateFromMeta(i), oreGeneratorData.veinBlockCount, BlockMatcher.forBlock(oreGeneratorData.targetBlock)),
-                            oreGeneratorData
-                    );
-                    //GenerationDatasを収納しているマップに追加する
-                    this.generationDatasMap.put(enumBlock.blockName + i, generationDatas);
+                    if(oreGeneratorData != null) {
+                        //GenerationDatasを作る
+                        GenerationDatas generationDatas = new GenerationDatas(
+                                new WorldGenMinable(oreBlock.getStateFromMeta(i), oreGeneratorData.veinBlockCount, BlockMatcher.forBlock(oreGeneratorData.targetBlock)),
+                                oreGeneratorData
+                        );
+                        //GenerationDatasを収納しているマップに追加する
+                        this.generationDatasMap.put(enumBlock.blockName + i, generationDatas);
+                    }
                 }
             }
         }
