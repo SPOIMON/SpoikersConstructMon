@@ -4,7 +4,10 @@ import com.spoimon.spoikers_construct_mon.world.generator.data.OreGeneratorData;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import slimeknights.mantle.block.EnumBlock;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -43,6 +46,16 @@ public class OreBlock<T extends java.lang.Enum<T> & EnumBlock.IEnumMeta & IStrin
     }
 
     @Override
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
+        for(int i = 0; i < values.length; i++) {
+            T value = values[i];
+            if(value.isAutoCreateOre()) {
+                list.add(new ItemStack(this, 1, i));
+            }
+        }
+    }
+
+    @Override
     @ParametersAreNonnullByDefault
     public int getHarvestLevel(IBlockState state) {
         int meta = this.getMetaFromState(state);
@@ -60,5 +73,7 @@ public class OreBlock<T extends java.lang.Enum<T> & EnumBlock.IEnumMeta & IStrin
         int getHarvestLevel();
         //自動生成に関するデータ
         OreGeneratorData getOreGeneratorData();
+        //鉱石を自動的に生成するかどうか
+        boolean isAutoCreateOre();
     }
 }

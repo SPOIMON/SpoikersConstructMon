@@ -23,6 +23,13 @@ public enum Ore01Enum implements IStringSerializable, EnumBlock.IEnumMeta, OreBl
         meta = ordinal();
     }
 
+
+    @Override
+    public boolean isAutoCreateOre() {
+        return true;
+    }
+
+
     @Override
     public int getHarvestLevel() {
         int defaultHarvestLevel = 0;
