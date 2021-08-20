@@ -13,7 +13,7 @@
     }],
     "lead": [{
       "textures": {
-        "all": "spoikers_construct_mon:items/ingot/copper_ingot"
+        "all": "spoikers_construct_mon:blocks/ore/lead_ore"
       }
     }]
   }

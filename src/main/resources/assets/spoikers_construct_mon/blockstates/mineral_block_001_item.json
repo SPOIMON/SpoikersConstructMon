@@ -13,7 +13,7 @@
     }],
     "lead": [{
       "textures": {
-        "all": "spoikers_construct_mon:blocks/mineral_block/block_of_copper"
+        "all": "spoikers_construct_mon:blocks/mineral_block/block_of_lead"
       }
     }]
   }

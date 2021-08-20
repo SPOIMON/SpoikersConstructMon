@@ -13,7 +13,7 @@
     }],
     "lead": [{
       "textures": {
-        "layer0": "spoikers_construct_mon:items/ingot/copper_ingot"
+        "layer0": "spoikers_construct_mon:items/ingot/lead_ingot"
       }
     }]
   }
