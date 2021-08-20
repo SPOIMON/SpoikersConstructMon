@@ -14,7 +14,8 @@ import java.util.Locale;
  */
 public enum Ore01Enum implements IStringSerializable, EnumBlock.IEnumMeta, OreBlock.IOreBlock {
     COPPER,
-    LEAD;
+    LEAD,
+    TIN;
 
     public final int meta;
 
@@ -46,6 +47,9 @@ public enum Ore01Enum implements IStringSerializable, EnumBlock.IEnumMeta, OreBl
             case LEAD:
                 result = new OreGeneratorData(6, Blocks.STONE, 16, 1, 70);
                 break;
+
+            case TIN:
+                result = new OreGeneratorData(7, Blocks.STONE, 14, 1, 65);
         }
 
         return result;

@@ -15,6 +15,11 @@
         "textures": {
           "all": "spoikers_construct_mon:blocks/mineral_block/block_of_lead"
         }
+      },
+      "tin": {
+        "textures": {
+          "all": "spoikers_construct_mon:blocks/mineral_block/block_of_tin"
+        }
       }
     }
   }

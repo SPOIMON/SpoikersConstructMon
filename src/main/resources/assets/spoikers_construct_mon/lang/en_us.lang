@@ -1,9 +1,13 @@
 # Blocks
 tile.scm.ore_001.copper.name=Copper Ore
 tile.scm.ore_001.lead.name=Lead Ore
+tile.scm.ore_001.tin.name=Tin Ore
+
 tile.scm.mineral_block_001.copper.name=Block of Copper
 tile.scm.mineral_block_001.lead.name=Block of Lead
+tile.scm.mineral_block_001.tin.name=Block of Tin
 
 # Items
 item.scm.ingot_001.copper.name=Copper Ingot
 item.scm.ingot_001.lead.name=Lead Ingot
+item.scm.ingot_001.tin.name=Tin Ingot
