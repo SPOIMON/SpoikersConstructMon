@@ -36,6 +36,7 @@ public enum Ore01Enum implements IStringSerializable, EnumBlock.IEnumMeta, OreBl
         switch (this) {
             case COPPER:
             case LEAD:
+            case TIN:
                 defaultHarvestLevel = 1;
                 break;
         }
