@@ -20,6 +20,11 @@
       "textures": {
         "all": "spoikers_construct_mon:blocks/ore/tin_ore"
       }
+    }],
+    "silver": [{
+      "textures": {
+        "all": "spoikers_construct_mon:blocks/ore/silver"
+      }
     }]
   }
 }

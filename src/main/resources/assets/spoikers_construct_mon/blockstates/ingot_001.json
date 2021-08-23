@@ -20,6 +20,11 @@
       "textures": {
         "layer0": "spoikers_construct_mon:items/ingot/tin_ingot"
       }
+    }],
+    "silver": [{
+      "textures": {
+        "layer0": "spoikers_construct_mon:items/ingot/silver"
+      }
     }]
   }
 }
