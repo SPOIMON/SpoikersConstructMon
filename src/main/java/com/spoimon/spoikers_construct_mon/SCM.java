@@ -1,11 +1,16 @@
 package com.spoimon.spoikers_construct_mon;
 
+import com.spoimon.spoikers_construct_mon.materials.SCMMaterials;
+import com.spoimon.spoikers_construct_mon.proxy.CommonProxy;
 import com.spoimon.spoikers_construct_mon.register.BlockRegister;
 import com.spoimon.spoikers_construct_mon.register.ItemRegister;
 import com.spoimon.spoikers_construct_mon.register.RecipeRegister;
 import com.spoimon.spoikers_construct_mon.world.generator.OreGenerator;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = SCM.MOD_ID, name = SCM.NAME, version = SCM.VERSION, dependencies = SCM.DEPENDENCIES)
@@ -21,6 +26,9 @@ public class SCM {
     //MODの依存関係
     public static final String DEPENDENCIES = "required-after:tconstruct@[1.12.2-2.13.0.183,);" + "required-after:mantle@[1.12-1.3.3.55,)";
 
+    @SidedProxy(clientSide = "com.spoimon.spoikers_construct_mon.proxy.ClientProxy", serverSide = "com.spoimon.spoikers_construct_mon.proxy.CommonProxy")
+    public static CommonProxy proxy;
+
     //SCMで追加されるアイテムの登録や管理
     public static ItemRegister itemRegister;
     //SCMで追加されるブロックの登録や管理
@@ -34,5 +42,11 @@ public class SCM {
         blockRegister = new BlockRegister();
         recipeRegister = new RecipeRegister();
         GameRegistry.registerWorldGenerator(new OreGenerator(), 0);
+    }
+
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(this);
+        SCMMaterials.setupMaterials();
     }
 }
