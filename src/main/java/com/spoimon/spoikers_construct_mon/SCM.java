@@ -2,9 +2,9 @@ package com.spoimon.spoikers_construct_mon;
 
 import com.spoimon.spoikers_construct_mon.materials.SCMMaterials;
 import com.spoimon.spoikers_construct_mon.proxy.CommonProxy;
-import com.spoimon.spoikers_construct_mon.register.BlockRegister;
-import com.spoimon.spoikers_construct_mon.register.ItemRegister;
-import com.spoimon.spoikers_construct_mon.register.RecipeRegister;
+import com.spoimon.spoikers_construct_mon.registry.BlockRegistry;
+import com.spoimon.spoikers_construct_mon.registry.ItemRegistry;
+import com.spoimon.spoikers_construct_mon.registry.RecipeRegistry;
 import com.spoimon.spoikers_construct_mon.world.generator.OreGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -30,17 +30,17 @@ public class SCM {
     public static CommonProxy proxy;
 
     //SCMで追加されるアイテムの登録や管理
-    public static ItemRegister itemRegister;
+    public static ItemRegistry itemRegistry;
     //SCMで追加されるブロックの登録や管理
-    public static BlockRegister blockRegister;
+    public static BlockRegistry blockRegistry;
     //SC<で追加されるレシピの登録
-    public static RecipeRegister recipeRegister;
+    public static RecipeRegistry recipeRegistry;
 
     @Mod.EventHandler
     public void construct(FMLConstructionEvent event) {
-        itemRegister = new ItemRegister();
-        blockRegister = new BlockRegister();
-        recipeRegister = new RecipeRegister();
+        itemRegistry = new ItemRegistry();
+        blockRegistry = new BlockRegistry();
+        recipeRegistry = new RecipeRegistry();
         GameRegistry.registerWorldGenerator(new OreGenerator(), 0);
     }
 

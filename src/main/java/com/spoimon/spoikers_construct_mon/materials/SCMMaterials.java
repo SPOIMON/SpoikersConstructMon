@@ -1,7 +1,7 @@
 package com.spoimon.spoikers_construct_mon.materials;
 
 import com.spoimon.spoikers_construct_mon.SCM;
-import com.spoimon.spoikers_construct_mon.register.TraitsRegistry;
+import com.spoimon.spoikers_construct_mon.registry.TraitsRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;

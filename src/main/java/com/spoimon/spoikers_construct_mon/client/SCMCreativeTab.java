@@ -1,6 +1,6 @@
 package com.spoimon.spoikers_construct_mon.client;
 
-import com.spoimon.spoikers_construct_mon.register.ItemRegister;
+import com.spoimon.spoikers_construct_mon.registry.ItemRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
@@ -24,6 +24,6 @@ public class SCMCreativeTab extends CreativeTabs {
     @Override
     public ItemStack getTabIconItem() {
         //TODO 象徴的なアイテムもしくはアイコンができたらそれに変える
-        return new ItemStack(ItemRegister.SCMItems.get("test_ingot"));
+        return new ItemStack(ItemRegistry.SCMItems.get("test_ingot"));
     }
 }

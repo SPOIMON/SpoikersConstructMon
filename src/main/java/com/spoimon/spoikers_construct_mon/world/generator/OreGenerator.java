@@ -2,7 +2,7 @@ package com.spoimon.spoikers_construct_mon.world.generator;
 
 import com.spoimon.spoikers_construct_mon.blocks.OreBlock;
 import com.spoimon.spoikers_construct_mon.blocks.SCMEnumBlock;
-import com.spoimon.spoikers_construct_mon.register.BlockRegister;
+import com.spoimon.spoikers_construct_mon.registry.BlockRegistry;
 import com.spoimon.spoikers_construct_mon.world.generator.data.OreGeneratorData;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.util.math.BlockPos;
@@ -44,7 +44,7 @@ public class OreGenerator implements IWorldGenerator {
 
     public OreGenerator() {
         //SCMで追加されたメタデータブロックをforで回す
-        for (SCMEnumBlock<?> enumBlock : BlockRegister.SCMEnumBlocks.values()) {
+        for (SCMEnumBlock<?> enumBlock : BlockRegistry.SCMEnumBlocks.values()) {
             //追加されたブロックがOreBlockだったら
             if(enumBlock instanceof OreBlock<?>) {
                 //SCMEnumBlockをOreBlockにキャスト

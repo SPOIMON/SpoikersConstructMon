@@ -1,4 +1,4 @@
-package com.spoimon.spoikers_construct_mon.register;
+package com.spoimon.spoikers_construct_mon.registry;
 
 import com.spoimon.spoikers_construct_mon.SCM;
 import com.spoimon.spoikers_construct_mon.blocks.MineralBlock;
@@ -23,8 +23,8 @@ import java.util.List;
  * SCMでレシピの登録をするクラス
  * @author riku1227
  */
-public class RecipeRegister {
-    public RecipeRegister() {
+public class RecipeRegistry {
+    public RecipeRegistry() {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -40,7 +40,7 @@ public class RecipeRegister {
      * 鉱石の精錬レシピを追加する
      */
     private void registerAllOreSmeltingRecipe() {
-        for(SCMEnumBlock<?> value : BlockRegister.SCMEnumBlocks.values()) {
+        for(SCMEnumBlock<?> value : BlockRegistry.SCMEnumBlocks.values()) {
             //OreBlockだったら
             if(value instanceof OreBlock) {
                 OreBlock<?> oreBlock = (OreBlock<?>) value;
@@ -62,7 +62,7 @@ public class RecipeRegister {
      * @param registry IRecipeのレジストリ
      */
     private void registerAllMineralBlocksRecipe(IForgeRegistry<IRecipe> registry) {
-        for (SCMEnumBlock<?> scmEnumBlock : BlockRegister.SCMEnumBlocks.values()) {
+        for (SCMEnumBlock<?> scmEnumBlock : BlockRegistry.SCMEnumBlocks.values()) {
             if(scmEnumBlock instanceof MineralBlock<?>) {
                 MineralBlock<?> mineralBlock = (MineralBlock<?>) scmEnumBlock;
                 List<String> metaNameList = mineralBlock.getMetaNameList();

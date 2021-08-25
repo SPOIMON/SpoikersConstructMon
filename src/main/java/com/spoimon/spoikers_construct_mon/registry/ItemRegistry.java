@@ -1,4 +1,4 @@
-package com.spoimon.spoikers_construct_mon.register;
+package com.spoimon.spoikers_construct_mon.registry;
 
 import com.spoimon.spoikers_construct_mon.blocks.enums.Ore01Enum;
 import com.spoimon.spoikers_construct_mon.items.IngotItem;
@@ -26,14 +26,14 @@ import java.util.Map;
  * @author riku1227
  */
 
-public class ItemRegister {
+public class ItemRegistry {
     public static Map<String, SCMItem> SCMItems = new HashMap<>();
     public static Map<String, SCMEnumItem<?>> SCMEnumItems = new HashMap<>();
 
     /**
      * コンストラクタ実行時に 'MinecraftForge.EVENT_BUS.register' が呼ばれる
      */
-    public ItemRegister() {
+    public ItemRegistry() {
         MinecraftForge.EVENT_BUS.register(this);
         //アイテムの登録
         registerItems();
@@ -52,7 +52,7 @@ public class ItemRegister {
      * @param item 登録するアイテム
      */
     private void registerItem(SCMItem item) {
-        ItemRegister.SCMItems.put(item.itemName, item);
+        ItemRegistry.SCMItems.put(item.itemName, item);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ItemRegister {
      * @param item 登録するメタデータアイテム
      */
     private void registerItem(SCMEnumItem<?> item) {
-        ItemRegister.SCMEnumItems.put(item.getRegistryNameNoMODID(), item);
+        ItemRegistry.SCMEnumItems.put(item.getRegistryNameNoMODID(), item);
     }
 
     /**

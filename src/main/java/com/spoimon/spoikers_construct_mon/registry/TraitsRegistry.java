@@ -1,4 +1,4 @@
-package com.spoimon.spoikers_construct_mon.register;
+package com.spoimon.spoikers_construct_mon.registry;
 
 import com.spoimon.spoikers_construct_mon.traits.TraitSoft;
 

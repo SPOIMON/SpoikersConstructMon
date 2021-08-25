@@ -1,4 +1,4 @@
-package com.spoimon.spoikers_construct_mon.register;
+package com.spoimon.spoikers_construct_mon.registry;
 
 import com.spoimon.spoikers_construct_mon.blocks.*;
 import com.spoimon.spoikers_construct_mon.blocks.enums.Ore01Enum;
@@ -30,14 +30,14 @@ import java.util.Map;
  * SCMで追加されるブロックの登録や管理を行うクラス
  * @author riku1227
  */
-public class BlockRegister {
+public class BlockRegistry {
     public static Map<String, SCMBlock> SCMBlocks = new HashMap<>();
     public static Map<String, SCMEnumBlock<?>> SCMEnumBlocks = new HashMap<>();
 
     /**
      * コンストラクタ実行時に EVENT_BUS に登録
      */
-    public BlockRegister() {
+    public BlockRegistry() {
         MinecraftForge.EVENT_BUS.register(this);
         //ブロックを登録
         registerBlocks();
