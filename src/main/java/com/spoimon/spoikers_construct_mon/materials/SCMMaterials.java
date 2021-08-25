@@ -10,13 +10,13 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.library.MaterialIntegration;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.fluid.FluidMolten;
 import slimeknights.tconstruct.library.materials.*;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.TinkerFluids;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockMolten;
 import slimeknights.tconstruct.tools.TinkerTraits;
 
@@ -50,8 +50,7 @@ public class SCMMaterials {
         tin.addTrait(TraitsRegistry.soft);
         tin.addTrait(TinkerTraits.lightweight);
 
-        TinkerSmeltery.registerToolpartMeltingCasting(tin);
-        TinkerRegistry.integrate(tin).preInit();
+        TinkerRegistry.integrate(new MaterialIntegration(tin, tin.getFluid())).preInit();
     }
 
     /**
