@@ -1,6 +1,7 @@
 package com.spoimon.spoikers_construct_mon.materials;
 
 import com.spoimon.spoikers_construct_mon.SCM;
+import com.spoimon.spoikers_construct_mon.register.TraitsRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -11,36 +12,46 @@ import net.minecraftforge.oredict.OreDictionary;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.fluid.FluidMolten;
-import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.*;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.shared.TinkerFluids;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockMolten;
+import slimeknights.tconstruct.tools.TinkerTraits;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SCMMaterials {
-    public static final Material tin = createMaterial("mat_test", 0xddebed);
+    public static final Material tin = createMaterial("tin", 0xddebed);
+
     public static final Map<String, FluidMolten> SCMFluidMoltenMap = new HashMap<>();
     public static final Map<String, BlockMolten> SCMBlockMoltenMap = new HashMap<>();
 
 
     public static void setupMaterials() {
-        /* Exmaple Code
-        createMolten(matCoal);
-        matCoal.addCommonItems("Coal");
+        /*
+         * 錫マテリアル
+         */
+        tin.addCommonItems("Tin");
+        tin.setFluid(TinkerFluids.tin);
+        tin.setRepresentativeItem("ingotTin");
+        tin.setCraftable(false);
+        tin.setCastable(true);
 
-        TinkerRegistry.addMaterialStats(matCoal,
-                new HeadMaterialStats(100, 100, 100, HarvestLevels.COBALT),
-                new HandleMaterialStats(100, 100),
-                new ExtraMaterialStats(10));
+        TinkerRegistry.addMaterialStats(tin,
+                new HeadMaterialStats(168, 3.5f, 3.8f, HarvestLevels.IRON),
+                new HandleMaterialStats(0.75f, -10),
+                new ExtraMaterialStats(-10)
+        );
+        TinkerRegistry.addMaterialStats(tin, new BowMaterialStats(0.75f, 0.8f, 0f));
+        tin.addTrait(TraitsRegistry.soft);
+        tin.addTrait(TinkerTraits.lightweight);
 
-
-        addMeltingRecipe(matCoal.getFluid(), new ItemStack(Items.COAL, 1, 0), Material.VALUE_Ingot);
-        TinkerSmeltery.registerToolpartMeltingCasting(matCoal);
-        TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.COAL_BLOCK), ItemStack.EMPTY, matCoal.getFluid(), Material.VALUE_Block);
-        TinkerRegistry.integrate(matCoal).toolforge().preInit();
-        */
+        TinkerSmeltery.registerToolpartMeltingCasting(tin);
+        TinkerRegistry.integrate(tin).preInit();
     }
 
     /**

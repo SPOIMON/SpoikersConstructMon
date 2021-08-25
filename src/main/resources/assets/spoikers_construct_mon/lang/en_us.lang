@@ -15,6 +15,10 @@ item.scm.ingot_001.lead.name=Lead Ingot
 item.scm.ingot_001.tin.name=Tin Ingot
 item.scm.ingot_001.silver.name=Silver Ingot
 
+# Materials
+material.tin.name=Tin
+material.tin.prefix=Tin %s
+
 # Traits
 modifier.scm_soft.name=Soft
 modifier.scm_soft.desc=Limp! Soft! §r\nConsume twice the durability

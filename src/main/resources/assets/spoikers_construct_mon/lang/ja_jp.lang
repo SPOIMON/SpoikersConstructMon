@@ -15,6 +15,10 @@ item.scm.ingot_001.lead.name=鉛インゴット
 item.scm.ingot_001.tin.name=錫インゴット
 item.scm.ingot_001.silver.name=銀インゴット
 
+# Materials
+material.tin.name=錫
+material.tin.prefix=錫の%s
+
 # Traits
 modifier.scm_soft.name=柔らか
 modifier.scm_soft.desc=ふにゃふにゃ！§r\n耐久度を2倍消費する
