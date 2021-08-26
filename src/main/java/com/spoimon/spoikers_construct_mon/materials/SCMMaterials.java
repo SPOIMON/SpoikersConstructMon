@@ -1,6 +1,12 @@
 package com.spoimon.spoikers_construct_mon.materials;
 
+import c4.conarm.common.armor.traits.ArmorTraits;
+import c4.conarm.lib.materials.ArmorMaterialType;
+import c4.conarm.lib.materials.CoreMaterialStats;
+import c4.conarm.lib.materials.PlatesMaterialStats;
+import c4.conarm.lib.materials.TrimMaterialStats;
 import com.spoimon.spoikers_construct_mon.SCM;
+import com.spoimon.spoikers_construct_mon.registry.ArmorTraitsRegistry;
 import com.spoimon.spoikers_construct_mon.registry.TraitsRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -15,6 +21,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.fluid.FluidMolten;
 import slimeknights.tconstruct.library.materials.*;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.block.BlockMolten;
@@ -47,8 +54,16 @@ public class SCMMaterials {
                 new ExtraMaterialStats(-10)
         );
         TinkerRegistry.addMaterialStats(tin, new BowMaterialStats(0.75f, 0.8f, 0f));
+        TinkerRegistry.addMaterialStats(tin,
+                new CoreMaterialStats(6, 5),
+                new PlatesMaterialStats(0.75f, 0, 0),
+                new TrimMaterialStats(5)
+        );
         tin.addTrait(TraitsRegistry.soft);
-        tin.addTrait(TinkerTraits.lightweight);
+        addToolTrait(tin, TinkerTraits.lightweight);
+        addToolTrait(tin, TraitsRegistry.soft);
+        addArmorTrait(tin, ArmorTraits.lightweight);
+        addArmorTrait(tin, ArmorTraitsRegistry.soft);
 
         TinkerRegistry.integrate(new MaterialIntegration(tin, tin.getFluid())).preInit();
     }
@@ -146,5 +161,46 @@ public class SCMMaterials {
                 MeltingRecipe.forAmount( RecipeMatch.of(oreDictionary, value ),
                         fluid, value)
         );
+    }
+
+    /**
+     * マテリアルのツールパーツに特性を追加する
+     * ヘッド, 持ち手, エキストラ に追加される
+     * @param material 特性を追加するマテリアル
+     * @param trait 追加する特性
+     */
+    private static void addToolTrait(Material material, ITrait trait) {
+        material.addTrait(trait, MaterialTypes.HEAD);
+        material.addTrait(trait, MaterialTypes.HANDLE);
+        material.addTrait(trait, MaterialTypes.EXTRA);
+    }
+
+    /**
+     * マテリアルのアーマーパーツに特性を追加する
+     * プレート, コア, トリム に追加される
+     * @param material 特性を追加するマテリアル
+     * @param trait 追加する特性
+     */
+    private static void addArmorTrait(Material material, ITrait trait) {
+        material.addTrait(trait, ArmorMaterialType.PLATES);
+        material.addTrait(trait, ArmorMaterialType.CORE);
+        material.addTrait(trait, ArmorMaterialType.TRIM);
+    }
+
+    /**
+     * 特性をマテリアルに追加する
+     * マテリアルタイプを指定すると、指定したパーツのみに特性を追加することができる
+     * @param material 特性を追加するマテリアル
+     * @param trait 追加する特性
+     * @param materialTypes 特性を追加するパーツ, 指定しない場合はnull
+     */
+    private static void addTrait(Material material, ITrait trait, String[] materialTypes) {
+        if(materialTypes == null) {
+            material.addTrait(trait);
+        } else {
+            for (String materialType : materialTypes) {
+                material.addTrait(trait, materialType);
+            }
+        }
     }
 }

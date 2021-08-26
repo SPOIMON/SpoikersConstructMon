@@ -22,3 +22,5 @@ material.tin.prefix=Tin %s
 # Traits
 modifier.scm_soft.name=Soft
 modifier.scm_soft.desc=Limp! Soft! §r\nConsume twice the durability
+modifier.scm_soft_armor.name=Soft
+modifier.scm_soft_armor.desc=Limp! Soft! §r\nConsume twice the durability

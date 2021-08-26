@@ -1,4 +1,4 @@
-package com.spoimon.spoikers_construct_mon.traits;
+package com.spoimon.spoikers_construct_mon.traits.tool;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;

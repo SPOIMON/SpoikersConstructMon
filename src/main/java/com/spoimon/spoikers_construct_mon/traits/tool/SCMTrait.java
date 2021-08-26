@@ -1,4 +1,4 @@
-package com.spoimon.spoikers_construct_mon.traits;
+package com.spoimon.spoikers_construct_mon.traits.tool;
 
 import net.minecraft.util.text.TextFormatting;
 import slimeknights.tconstruct.library.traits.AbstractTrait;

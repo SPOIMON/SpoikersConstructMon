@@ -22,3 +22,5 @@ material.tin.prefix=錫の%s
 # Traits
 modifier.scm_soft.name=柔らか
 modifier.scm_soft.desc=ふにゃふにゃ！§r\n耐久度を2倍消費する
+modifier.scm_soft_armor.name=柔らか
+modifier.scm_soft_armor.desc=ふにゃふにゃ！§r\n耐久度を2倍消費する
