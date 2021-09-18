@@ -25,6 +25,11 @@
       "textures": {
         "layer0": "spoikers_construct_mon:items/ingot/silver"
       }
+    }],
+    "platinum": [{
+      "textures": {
+        "layer0": "spoikers_construct_mon:items/ingot/platinum"
+      }
     }]
   }
 }

@@ -3,21 +3,26 @@ tile.scm.ore_001.copper.name=銅鉱石
 tile.scm.ore_001.lead.name=鉛鉱石
 tile.scm.ore_001.tin.name=錫鉱石
 tile.scm.ore_001.silver.name=銀鉱石
+tile.scm.ore_001.platinum.name=プラチナ鉱石
 
 tile.scm.mineral_block_001.copper.name=銅ブロック
 tile.scm.mineral_block_001.lead.name=鉛ブロック
 tile.scm.mineral_block_001.tin.name=錫ブロック
 tile.scm.mineral_block_001.silver.name=銀ブロック
+tile.scm.mineral_block_001.platinum.name=プラチナブロック
 
 # Items
 item.scm.ingot_001.copper.name=銅インゴット
 item.scm.ingot_001.lead.name=鉛インゴット
 item.scm.ingot_001.tin.name=錫インゴット
 item.scm.ingot_001.silver.name=銀インゴット
+item.scm.ingot_001.platinum.name=プラチナインゴット
 
 # Materials
 material.tin.name=錫
 material.tin.prefix=錫の%s
+material.platinum.name=プラチナ
+material.platinum.prefix=プラチナの%s
 
 # Traits
 modifier.scm_soft.name=柔らか

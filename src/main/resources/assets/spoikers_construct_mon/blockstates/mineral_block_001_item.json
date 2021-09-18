@@ -25,6 +25,11 @@
       "textures": {
         "all": "spoikers_construct_mon:blocks/mineral_block/silver"
       }
+    }],
+    "platinum": [{
+      "textures": {
+        "all": "spoikers_construct_mon:blocks/mineral_block/platinum"
+      }
     }]
   }
 }

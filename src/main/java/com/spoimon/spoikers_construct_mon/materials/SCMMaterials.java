@@ -14,13 +14,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.oredict.OreDictionary;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.MaterialIntegration;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.fluid.FluidMolten;
 import slimeknights.tconstruct.library.materials.*;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.library.smeltery.PreferenceCastingRecipe;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -28,14 +28,15 @@ import slimeknights.tconstruct.smeltery.block.BlockMolten;
 import slimeknights.tconstruct.tools.TinkerTraits;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SCMMaterials {
     public static final Material tin = createMaterial("tin", 0xddebed);
+    public static final Material platinum = createMaterial("platinum", 0x8adaff);
 
     public static final Map<String, FluidMolten> SCMFluidMoltenMap = new HashMap<>();
     public static final Map<String, BlockMolten> SCMBlockMoltenMap = new HashMap<>();
+
 
 
     public static void setupMaterials() {
@@ -66,6 +67,34 @@ public class SCMMaterials {
         addArmorTrait(tin, ArmorTraitsRegistry.soft);
 
         TinkerRegistry.integrate(new MaterialIntegration(tin, tin.getFluid())).preInit();
+
+        /*
+         * プラチナマテリアル
+         * */
+        platinum.addCommonItems("Platinum");
+        createMolten(platinum);
+        platinum.setRepresentativeItem("ingotPlatinum");
+        autoSetupMeltingRecipe(platinum, "Platinum");
+        autoSetupBasinCasting(platinum, "Platinum");
+
+
+        TinkerRegistry.addMaterialStats(platinum,
+                new HeadMaterialStats(486, 6.15f, 7.25f, HarvestLevels.COBALT),
+                new HandleMaterialStats(1.15f, 120),
+                new ExtraMaterialStats(87));
+        TinkerRegistry.addMaterialStats(platinum, new BowMaterialStats(0.45f, 1.5f, 1f));
+        TinkerRegistry.addMaterialStats(platinum,
+                new CoreMaterialStats(21.5f, 16f),
+                new PlatesMaterialStats(1.5f, 10f, 2f),
+                new TrimMaterialStats(5.5f));
+
+        platinum.addTrait(TinkerTraits.holy, MaterialTypes.HEAD);
+        platinum.addTrait(TinkerTraits.enderference, MaterialTypes.HEAD);
+        platinum.addTrait(TinkerTraits.established);
+        addArmorTrait(platinum, ArmorTraits.ambitious);
+        addArmorTrait(platinum, ArmorTraits.blessed);
+
+        TinkerRegistry.integrate(new MaterialIntegration(platinum, platinum.getFluid())).preInit();
     }
 
     /**
@@ -128,12 +157,9 @@ public class SCMMaterials {
      * @param oreDicPrefix 完成するブロックの鉱石辞書名の'ore'などを省いた部分
      */
     private static void autoSetupBasinCasting(Material material, String oreDicPrefix) {
-        List<ItemStack> mineralBlocks = OreDictionary.getOres("block" + oreDicPrefix);
-        if(mineralBlocks.size() > 0) {
-            TinkerRegistry.registerBasinCasting(
-                    mineralBlocks.get(0), ItemStack.EMPTY, material.getFluid(), Material.VALUE_Block
-            );
-        }
+        TinkerRegistry.registerBasinCasting(
+                new PreferenceCastingRecipe("block" + oreDicPrefix, null, material.getFluid(), Material.VALUE_Block)
+        );
 
     }
 

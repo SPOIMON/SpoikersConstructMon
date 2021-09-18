@@ -4,5 +4,8 @@
     "model": "forge:fluid"
   },
   "variants": {
+    "platinum": [{
+      "custom": { "fluid": "platinum" }
+    }]
   }
 }
