@@ -17,7 +17,8 @@ public enum Ore01Enum implements IStringSerializable, EnumBlock.IEnumMeta, OreBl
     LEAD,
     TIN,
     SILVER,
-    PLATINUM;
+    PLATINUM,
+    NICKEL;
 
     public final int meta;
 
@@ -40,6 +41,7 @@ public enum Ore01Enum implements IStringSerializable, EnumBlock.IEnumMeta, OreBl
             case LEAD:
             case TIN:
             case SILVER:
+            case NICKEL:
                 defaultHarvestLevel = 1;
                 break;
             case PLATINUM:
@@ -64,11 +66,17 @@ public enum Ore01Enum implements IStringSerializable, EnumBlock.IEnumMeta, OreBl
             case TIN:
                 result = new OreGeneratorData(7, Blocks.STONE, 14, 1, 65);
                 break;
+
             case SILVER:
                 result = new OreGeneratorData(4, Blocks.STONE, 9, 1, 68);
                 break;
+
             case PLATINUM:
                 result = new OreGeneratorData(3, Blocks.STONE, 4, 1, 13);
+                break;
+
+            case NICKEL:
+                result = new OreGeneratorData(6, Blocks.STONE, 12, 1, 72);
                 break;
         }
 

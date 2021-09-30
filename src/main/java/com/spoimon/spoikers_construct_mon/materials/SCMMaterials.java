@@ -33,6 +33,7 @@ import java.util.Map;
 public class SCMMaterials {
     public static final Material tin = createMaterial("tin", 0xddebed);
     public static final Material platinum = createMaterial("platinum", 0x8adaff);
+    public static final Material nickel = createMaterial("nickel", 0xfffcbd);
 
     public static final Map<String, FluidMolten> SCMFluidMoltenMap = new HashMap<>();
     public static final Map<String, BlockMolten> SCMBlockMoltenMap = new HashMap<>();
@@ -95,6 +96,27 @@ public class SCMMaterials {
         addArmorTrait(platinum, ArmorTraits.blessed);
 
         TinkerRegistry.integrate(new MaterialIntegration(platinum, platinum.getFluid())).preInit();
+
+        /*
+        * ニッケルマテリアル
+        * */
+        nickel.addCommonItems("Nickel");
+        createMolten(nickel);
+        nickel.setRepresentativeItem("ingotNickel");
+        autoSetupMeltingRecipe(nickel, "Nickel");
+        autoSetupBasinCasting(nickel, " Nickel");
+
+        TinkerRegistry.addMaterialStats(nickel,
+                new HeadMaterialStats(105, 2.8f, 3.4f, HarvestLevels.IRON),
+                new HandleMaterialStats(0.8f, -10),
+                new ExtraMaterialStats(34));
+        TinkerRegistry.addMaterialStats(nickel, new BowMaterialStats(0.88f, 0.75f, 0f));
+        TinkerRegistry.addMaterialStats(nickel,
+                new CoreMaterialStats(6, 5),
+                new PlatesMaterialStats(0.78f, 1, 0),
+                new TrimMaterialStats(3.5f));
+
+        TinkerRegistry.integrate(new MaterialIntegration(nickel, nickel.getFluid())).preInit();
     }
 
     /**

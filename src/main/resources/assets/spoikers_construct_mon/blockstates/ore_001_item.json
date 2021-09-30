@@ -30,6 +30,11 @@
       "textures": {
         "all": "spoikers_construct_mon:blocks/ore/platinum"
       }
+    }],
+    "nickel": [{
+      "textures": {
+        "all": "spoikers_construct_mon:blocks/ore/nickel"
+      }
     }]
   }
 }

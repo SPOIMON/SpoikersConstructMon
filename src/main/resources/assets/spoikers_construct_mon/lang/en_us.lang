@@ -4,12 +4,14 @@ tile.scm.ore_001.lead.name=Lead Ore
 tile.scm.ore_001.tin.name=Tin Ore
 tile.scm.ore_001.silver.name=Silver Ore
 tile.scm.ore_001.platinum.name=Platinum Ore
+tile.scm.ore_001.nickel.name=Nickel Ore
 
 tile.scm.mineral_block_001.copper.name=Block of Copper
 tile.scm.mineral_block_001.lead.name=Block of Lead
 tile.scm.mineral_block_001.tin.name=Block of Tin
 tile.scm.mineral_block_001.silver.name=Block of Silver
 tile.scm.mineral_block_001.platinum.name=Block of Platinum
+tile.scm.mineral_block_001.nickel.name=Block of Nickel
 
 # Items
 item.scm.ingot_001.copper.name=Copper Ingot
@@ -17,12 +19,14 @@ item.scm.ingot_001.lead.name=Lead Ingot
 item.scm.ingot_001.tin.name=Tin Ingot
 item.scm.ingot_001.silver.name=Silver Ingot
 item.scm.ingot_001.platinum.name=Platinum Ingot
+item.scm.ingot_001.nickel.name=Nickel Ingot
 
 # Materials
 material.tin.name=Tin
 material.tin.prefix=Tin %s
 material.platinum.name=Platinum
 material.platinum.prefix=Platinum %s
+material.nickel.prefix=Nickel %s
 
 # Traits
 modifier.scm_soft.name=Soft

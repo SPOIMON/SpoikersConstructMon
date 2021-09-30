@@ -30,6 +30,11 @@
       "textures": {
         "layer0": "spoikers_construct_mon:items/ingot/platinum"
       }
+    }],
+    "nickel": [{
+      "textures": {
+        "layer0": "spoikers_construct_mon:items/ingot/nickel"
+      }
     }]
   }
 }
